@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CybeRover</title>
+    <style>
+        /* Add CSS styles for the chat interface here */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #chat-container {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .chat-message {
+            padding: 10px;
+            border-radius: 15px; /* Rounded corners */
+            margin: 10px 0; /* Added spacing between chat messages */
+            max-width: 70%;
+        }
+
+        .user-message {
+            background-color: #fe5f55;
+            text-align: right;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .bot-message {
+            background-color: #eef5db;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        #chat-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 15px; /* Rounded corners for the input box */
+            margin-top: 10px; /* Added spacing between input and chat messages */
+            margin-bottom: 10px;
+        }
+
+
+        button[type="submit"] {
+            background-color: #7a9e9f;
+            color: #fff;
+            border: none;
+            border-radius: 15px; /* Rounded corners for the button */
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+<div id="chat-container">
+    <h1>CybeRover</h1>
+
+    <!-- Iterate through the chat messages and display them alternately -->
+    <div th:each="message, iterStat : ${messages}"
+         th:class="${message.user} ? 'user-message' : 'bot-message'"
+         th:text="${message.content}"
+         class="chat-message"
+         th:style="${iterStat.index} > 0 ? 'margin-top: 10px;' : ''"></div>
+
+    <form action="/chat" method="post">
+        <input type="text" name="userInput" id="chat-input" placeholder="Type your message here" />
+        <button type="submit">Send</button>
+    </form>
+</div>
+</body>
+</html>
